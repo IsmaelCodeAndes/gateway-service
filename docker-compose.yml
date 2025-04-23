@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"  # REST API
+      - "5000:5000"  # gRPC
+    environment:
+      - DATABASE_URL=postgresql://postgres:12345@localhost:5432/microservicios
+    networks:
+      - proyectos-network
+
+networks:
+  proyectos-network:
+    driver: bridge
