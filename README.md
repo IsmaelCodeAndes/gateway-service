@@ -31,6 +31,12 @@ Servicio API Gateway para microservicios (NestJS + gRPC)
 ## Descripción
 Este proyecto es el punto de entrada para el ecosistema de microservicios. Expone endpoints HTTP y se comunica vía gRPC con los servicios de agencias y proyectos.
 
+**Características principales:**
+- Enrutamiento y agregación de datos desde microservicios.
+- Endpoint enriquecido para relaciones agencia-proyecto.
+- Filtros flexibles por agencia y proyecto.
+- Documentación Swagger lista para pruebas y exploración.
+
 Incluye automatización para el manejo de archivos `.proto` (necesarios para gRPC) durante el desarrollo y la producción.
 
 ---
@@ -45,6 +51,48 @@ Incluye automatización para el manejo de archivos `.proto` (necesarios para gRP
 ## Instalación
 ```bash
 pnpm install
+```
+
+---
+
+## Endpoints principales
+
+### Obtener relaciones agencia-proyecto enriquecidas
+
+`GET /agency-projects/full`
+
+#### Parámetros de query (opcionales):
+- `agenciaId`: Filtra por el ID de la agencia.
+- `proyectoId`: Filtra por el ID del proyecto.
+
+#### Ejemplos de uso
+- Obtener todas las relaciones:
+  ```
+  GET /agency-projects/full
+  ```
+- Obtener todas las relaciones para una agencia:
+  ```
+  GET /agency-projects/full?agenciaId=UUID_AGENCIA
+  ```
+- Obtener todas las relaciones para un proyecto:
+  ```
+  GET /agency-projects/full?proyectoId=UUID_PROYECTO
+  ```
+- Obtener la relación específica entre agencia y proyecto:
+  ```
+  GET /agency-projects/full?agenciaId=UUID_AGENCIA&proyectoId=UUID_PROYECTO
+  ```
+
+#### Respuesta de ejemplo
+```json
+[
+  {
+    "id": "relacion-uuid",
+    "created_at": "2025-04-23T17:00:00.000Z",
+    "agencia": { "id": "...", "name": "...", ... },
+    "proyecto": { "id": "...", "name": "...", ... }
+  }
+]
 ```
 
 ---
