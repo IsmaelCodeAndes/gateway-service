@@ -17,7 +17,7 @@ export class AgenciesGrpcClient implements OnModuleInit {
   @Client({
     transport: Transport.GRPC,
     options: {
-      url: 'localhost:5002', // Puerto del microservicio de agencias
+      url: process.env.AGENCIES_SERVICE_URL || 'localhost:5002', // Usa variable de entorno o localhost por defecto
       package: 'agencias',
       protoPath: join(__dirname, '../../../proto/agencias.proto'),
     },
