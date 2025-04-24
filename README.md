@@ -28,6 +28,24 @@ Servicio API Gateway para microservicios (NestJS + gRPC)
 
 ---
 
+## Despliegue y pruebas
+
+### Docker Compose (recomendado)
+
+Este gateway está preparado para funcionar en un entorno Docker Compose. Todas las URLs de servicios gRPC se configuran por variables de entorno:
+
+- `AGENCIES_SERVICE_URL=agencias-service:5002`
+- `PROJECTS_SERVICE_URL=proyectos-service:5001`
+- `AGENCY_PROJECTS_SERVICE_URL=agencies-users-management-service:5003`
+
+### Docker individual
+
+Puedes construir y correr el gateway por separado. Define las variables de entorno necesarias para cada microservicio conectado.
+
+### Local puro
+
+Puedes correr el gateway localmente con pnpm/npx y variables de entorno.
+
 ## Descripción
 Este proyecto es el punto de entrada para el ecosistema de microservicios. Expone endpoints HTTP y se comunica vía gRPC con los servicios de agencias y proyectos.
 
