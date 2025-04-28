@@ -38,9 +38,18 @@ Este gateway está preparado para funcionar en un entorno Docker Compose. Todas 
 - `PROJECTS_SERVICE_URL=proyectos-service:5001`
 - `AGENCY_PROJECTS_SERVICE_URL=agencies-users-management-service:5003`
 
-### Docker individual
+### Docker individual (flujo recomendado)
 
-Puedes construir y correr el gateway por separado. Define las variables de entorno necesarias para cada microservicio conectado.
+1. Inicia la base de datos y el servicio de migraciones Prisma:
+   ```bash
+   docker-compose up db dbprisma-service
+   ```
+2. Cuando las migraciones hayan terminado, inicia el gateway:
+   ```bash
+   docker-compose up gateway-service
+   ```
+
+Esto asegura que la base de datos y el esquema estén listos antes de iniciar el gateway y que pueda comunicarse correctamente con los microservicios.
 
 ### Local puro
 
