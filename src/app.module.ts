@@ -5,9 +5,10 @@ import { AgenciesModule } from './modules/agencies/agencies.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { AgencyProjectsModule } from './modules/agency-projects/agency-projects.module';
 import { EmpresasModule } from './modules/empresas/empresas.module';
+import { ProyectosInmobiliariosModule } from './modules/proyectos-inmobiliarios/proyectos.module';
 
 @Module({
-  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule],
+  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule],
   controllers: [AppController],
   providers: [AppService],
 })
