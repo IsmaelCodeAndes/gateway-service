@@ -12,12 +12,14 @@ services:
       - AGENCY_PROJECTS_SERVICE_URL=agencies-users-management-microservices:5003
       - EMPRESAS_SERVICE_URL=empresas-service:5004
       - PROYECTOS_INMOBILIARIOS_SERVICE_URL=proyectos-inmobiliarios:5005
+      - TIPO_DOCUMENTO_SERVICE_URL=tipo-documento-service:5007
     extra_hosts:
       - "project-management-microservice:host-gateway"
       - "agencies-management-microservice:host-gateway"
       - "agencies-users-management-microservices:host-gateway"
       - "empresas-service:host-gateway"
       - "proyectos-inmobiliarios:host-gateway"
+      - "tipo-documento-service:host-gateway"
  
 networks:
   proyectos-network:

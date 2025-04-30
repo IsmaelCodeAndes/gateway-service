@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package documento;
+
+service DocumentoService {
+  rpc CreateDocumento (CreateDocumentoRequest) returns (Documento) {}
+  rpc GetDocumento (GetDocumentoRequest) returns (Documento) {}
+  rpc ListDocumentos (ListDocumentosRequest) returns (ListDocumentosResponse) {}
+  rpc UpdateDocumento (UpdateDocumentoRequest) returns (Documento) {}
+  rpc DeleteDocumento (DeleteDocumentoRequest) returns (DeleteDocumentoResponse) {}
+}
+
+message Documento {
+  int32 tipo_documento_id = 1;
+  string nombre = 2;
+  string descripcion = 3;
+  int32 longitudMax = 4;
+  bool esActivo = 5;
+  string createdAt = 6;
+}
+
+message CreateDocumentoRequest {
+  string nombre = 1;
+  string descripcion = 2;
+  int32 longitudMax = 3;
+  bool esActivo = 4;
+}
+
+message GetDocumentoRequest {
+  int32 tipoDocumentoId = 1;
+}
+
+message ListDocumentosRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListDocumentosResponse {
+  repeated Documento documentos = 1;
+  int32 total = 2;
+}
+
+message UpdateDocumentoRequest {
+  int32 tipoDocumentoId = 1;
+  string nombre = 2;
+  string descripcion = 3;
+  int32 longitudMax = 4;
+  bool esActivo = 5;
+}
+
+message DeleteDocumentoRequest {
+  int32 tipoDocumentoId = 1;
+}
+
+message DeleteDocumentoResponse {
+  bool success = 1;
+}
