@@ -7,9 +7,10 @@ import { AgencyProjectsModule } from './modules/agency-projects/agency-projects.
 import { EmpresasModule } from './modules/empresas/empresas.module';
 import { ProyectosInmobiliariosModule } from './modules/proyectos-inmobiliarios/proyectos.module';
 import { DocumentosModule } from './modules/documentos/documentos.module';
+import { PersonasModule } from './modules/personas/personas.module';
 
 @Module({
-  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule, DocumentosModule],
+  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule, DocumentosModule, PersonasModule],
   controllers: [AppController],
   providers: [AppService],
 })
