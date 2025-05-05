@@ -14,6 +14,10 @@ services:
       - PROYECTOS_INMOBILIARIOS_SERVICE_URL=proyectos-inmobiliarios:5005
       - TIPO_DOCUMENTO_SERVICE_URL=tipo-documento-service:5007
       - PERSONAS_SERVICE_URL=personas-service:5014
+      - USUARIOS_SERVICE_URL=usuarios-service:5021
+      - OPCIONES_SERVICE_URL=opciones-service:5022
+      - ROLES_SERVICE_URL=roles-service:5020
+      - UERS_SERVICE_URL=uers-service:5023
     extra_hosts:
       - "proyectos-service:host-gateway"
       - "agencias-service:host-gateway"
@@ -22,7 +26,10 @@ services:
       - "proyectos-inmobiliarios:host-gateway"
       - "tipo-documento-service:host-gateway"
       - "personas-service:host-gateway"
- 
+      - "usuarios-service:host-gateway"
+      - "opciones-service:host-gateway"
+      - "roles-service:host-gateway"
+      - "uers-service:host-gateway"
 networks:
   proyectos-network:
     name: inmobiliaria-network
