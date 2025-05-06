@@ -19,6 +19,7 @@ services:
       - ROLES_SERVICE_URL=roles-service:5020
       - UERS_SERVICE_URL=uers-service:5023
       - CLIENTES_SERVICE_URL=clientes-service:5026
+      - MEDIO_CONTACTO_SERVICE_URL=medio-contacto-service:5031
     extra_hosts:
       - "proyectos-service:host-gateway"
       - "agencias-service:host-gateway"
@@ -32,6 +33,7 @@ services:
       - "roles-service:host-gateway"
       - "uers-service:host-gateway"
       - "clientes-service:host-gateway"
+      - "medio-contacto-service:host-gateway"
 networks:
   proyectos-network:
     name: inmobiliaria-network
