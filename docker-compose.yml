@@ -2,8 +2,8 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"  # REST API
-      - "5000:5000"  # gRPC
+      - "3900:3900"  # REST API
+      - "5900:5900"  # gRPC
     networks:
       - proyectos-network
     environment:
