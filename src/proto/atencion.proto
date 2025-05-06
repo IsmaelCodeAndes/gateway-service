@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package atencion;
+
+service AtencionService {
+    rpc CreateAtencion (CreateAtencionRequest) returns (Atencion) {}
+    rpc GetAtencion (GetAtencionRequest) returns (Atencion) {}
+    rpc ListAtenciones (ListAtencionesRequest) returns (ListAtencionesResponse) {}
+    rpc UpdateAtencion (UpdateAtencionRequest) returns (Atencion) {}
+    rpc DeleteAtencion (DeleteAtencionRequest) returns (DeleteAtencionResponse) {}
+}
+
+message Atencion {
+    int32 tipo_atencion_id = 1;
+    string nombre = 2;
+    string descripcion = 3;
+    bool activo = 4;
+    string creadoPor = 5;
+    string creadoEn = 6;
+}
+
+message CreateAtencionRequest {
+    string nombre = 1;
+    string descripcion = 2;
+    bool activo = 3;
+    string creadoPor = 4;
+}
+
+message GetAtencionRequest {
+    int32 tipoAtencionId = 1;
+}
+
+message ListAtencionesRequest {
+    int32 page = 1;
+    int32 limit = 2;
+    string search = 3;
+}
+
+message ListAtencionesResponse {
+    repeated Atencion atenciones = 1;
+    int32 total = 2;
+}
+
+message UpdateAtencionRequest {
+    int32 tipoAtencionId = 1;
+    string nombre = 2;
+    string descripcion = 3;
+    bool activo = 4;
+    string creadoPor = 5;
+}
+
+message DeleteAtencionRequest {
+    int32 tipoAtencionId = 1;
+}
+
+message DeleteAtencionResponse {
+    bool success = 1;
+}
