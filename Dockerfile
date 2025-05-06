@@ -13,7 +13,7 @@ COPY . .
 RUN node -e "require('fs').mkdirSync('dist/proto', { recursive: true })"
 RUN pnpm run build
  
-EXPOSE 3000
-EXPOSE 5000
+EXPOSE 3900
+EXPOSE 5900
  
 CMD ["pnpm", "run", "start:prod"]
