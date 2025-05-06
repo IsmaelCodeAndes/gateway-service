@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package cliente;
+
+service ClienteService {
+    rpc CreateCliente (CreateClienteRequest) returns (Cliente) {}
+    rpc GetCliente (GetClienteRequest) returns (Cliente) {}
+    rpc ListClientes (ListClientesRequest) returns (ListClientesResponse) {}
+    rpc UpdateCliente (UpdateClienteRequest) returns (Cliente) {}
+    rpc DeleteCliente (DeleteClienteRequest) returns (DeleteClienteResponse) {}
+}
+
+message Cliente {
+    int32 cliente_id = 1;
+    int32 empresa_id = 2;
+    int32 persona_id = 3;
+    int32 medio_captacion_id = 4;
+    int32 ejecutivo_asignado_id = 5;
+    int32 estado_civil_id = 6;
+    string profesion_ocupacion = 7;
+    double ingreso_mensual = 8;
+    string referencias = 9;
+    string observaciones = 10;
+    string created_at = 11;
+    string updated_at = 12;
+}
+
+message CreateClienteRequest {
+    int32 empresaId = 1;
+    int32 personaId = 2;
+    int32 medioCaptacionId = 3;
+    int32 ejecutivoAsignadoId = 4;
+    int32 estadoCivilId = 5;
+    string profesionOcupacion = 6;
+    double ingresoMensual = 7;
+    string referencias = 8;
+    string observaciones = 9;
+}
+
+message GetClienteRequest {
+    int32 clienteId = 1;
+}
+
+message ListClientesRequest {
+    int32 page = 1;
+    int32 limit = 2;
+    string search = 3;
+}
+
+message ListClientesResponse {
+    repeated Cliente clientes = 1;
+    int32 total = 2;
+}
+
+message UpdateClienteRequest {
+    int32 clienteId = 1;
+    int32 empresaId = 2;
+    int32 personaId = 3;
+    int32 medioCaptacionId = 4;
+    int32 ejecutivoAsignadoId = 5;
+    int32 estadoCivilId = 6;
+    string profesionOcupacion = 7;
+    double ingresoMensual = 8;
+    string referencias = 9;
+    string observaciones = 10;
+}
+
+message DeleteClienteRequest {
+    int32 clienteId = 1;
+}
+
+message DeleteClienteResponse {
+    bool success = 1;
+}

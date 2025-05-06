@@ -12,10 +12,10 @@ import { UsuariosModule } from './modules/usuarios/usuarios.module';
 import { OpcionesModule } from './modules/opciones/opciones.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { UersModule } from './modules/uers/uers.module';
-
+import { ClienteModule } from './modules/clientes/cliente.module';
 
 @Module({
-  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule, DocumentosModule, PersonasModule, UsuariosModule, OpcionesModule, RolesModule, UersModule],
+  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule, DocumentosModule, PersonasModule, UsuariosModule, OpcionesModule, RolesModule, UersModule, ClienteModule],
   controllers: [AppController],
   providers: [AppService],
 })
