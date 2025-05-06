@@ -13,9 +13,24 @@ import { OpcionesModule } from './modules/opciones/opciones.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { UersModule } from './modules/uers/uers.module';
 import { ClienteModule } from './modules/clientes/cliente.module';
+import { ContactoModule } from './modules/medios-contacto/contacto.module';
 
 @Module({
-  imports: [AgenciesModule, ProjectsModule, AgencyProjectsModule, EmpresasModule, ProyectosInmobiliariosModule, DocumentosModule, PersonasModule, UsuariosModule, OpcionesModule, RolesModule, UersModule, ClienteModule],
+  imports: [
+    AgenciesModule, 
+    ProjectsModule, 
+    AgencyProjectsModule, 
+    EmpresasModule, 
+    ProyectosInmobiliariosModule, 
+    DocumentosModule, 
+    PersonasModule, 
+    UsuariosModule, 
+    OpcionesModule, 
+    RolesModule, 
+    UersModule, 
+    ClienteModule,
+    ContactoModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
