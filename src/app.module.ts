@@ -14,6 +14,7 @@ import { RolesModule } from './modules/roles/roles.module';
 import { UersModule } from './modules/uers/uers.module';
 import { ClienteModule } from './modules/clientes/cliente.module';
 import { ContactoModule } from './modules/medios-contacto/contacto.module';
+import { AtencionModule } from './modules/tipo-atencion/atencion.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { ContactoModule } from './modules/medios-contacto/contacto.module';
     RolesModule, 
     UersModule, 
     ClienteModule,
-    ContactoModule
+    ContactoModule,
+    AtencionModule
   ],
   controllers: [AppController],
   providers: [AppService],
