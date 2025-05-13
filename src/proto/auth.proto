@@ -1,0 +1,666 @@
+syntax = "proto3";
+
+package auth;
+
+/**
+ * Servicio unificado de autenticación y autorización
+ * Contiene todos los servicios relacionados con la gestión de usuarios, roles, permisos, etc.
+ */
+
+// ==================== SERVICIOS ====================
+
+/**
+ * Servicio para gestión de usuarios
+ */
+service UsuariosService {
+  rpc CreateUsuario (CreateUsuarioRequest) returns (CreateUsuarioResponse);
+  rpc FindOneUsuario (FindOneUsuarioRequest) returns (FindOneUsuarioResponse);
+  rpc FindAllUsuarios (FindAllUsuariosRequest) returns (FindAllUsuariosResponse);
+  rpc UpdateUsuario (UpdateUsuarioRequest) returns (UpdateUsuarioResponse);
+  rpc DeleteUsuario (DeleteUsuarioRequest) returns (DeleteUsuarioResponse);
+ 
+}
+
+/**
+ * Servicio para gestión de roles
+ */
+service RolesService {
+  rpc CreateRol (CreateRolRequest) returns (CreateRolResponse);
+  rpc FindOneRol (FindOneRolRequest) returns (FindOneRolResponse);
+  rpc FindAllRoles (FindAllRolesRequest) returns (FindAllRolesResponse);
+  rpc UpdateRol (UpdateRolRequest) returns (UpdateRolResponse);
+  rpc DeleteRol (DeleteRolRequest) returns (DeleteRolResponse);
+}
+
+/**
+ * Servicio para gestión de personas
+ */
+service PersonasService {
+  rpc CreatePersona (CreatePersonaRequest) returns (CreatePersonaResponse);
+  rpc FindOnePersona (FindOnePersonaRequest) returns (FindOnePersonaResponse);
+  rpc FindAllPersonas (FindAllPersonasRequest) returns (FindAllPersonasResponse);
+  rpc UpdatePersona (UpdatePersonaRequest) returns (UpdatePersonaResponse);
+  rpc DeletePersona (DeletePersonaRequest) returns (DeletePersonaResponse);
+}
+
+/**
+ * Servicio para gestión de tipos de documento
+ */
+service TipoDocumentoService {
+  rpc CreateTipoDocumento (CreateTipoDocumentoRequest) returns (TipoDocumentoResponse);
+  rpc GetTipoDocumento (GetTipoDocumentoRequest) returns (TipoDocumentoResponse);
+  rpc ListTipoDocumentos (ListTipoDocumentosRequest) returns (ListTipoDocumentosResponse);
+  rpc UpdateTipoDocumento (UpdateTipoDocumentoRequest) returns (TipoDocumentoResponse);
+  rpc DeleteTipoDocumento (DeleteTipoDocumentoRequest) returns (DeleteTipoDocumentoResponse);
+}
+
+/**
+ * Servicio para gestión de tipos de género
+ */
+service TipoGeneroService {
+  rpc CreateTipoGenero (CreateTipoGeneroRequest) returns (TipoGeneroResponse);
+  rpc GetTipoGenero (GetTipoGeneroRequest) returns (TipoGeneroResponse);
+  rpc ListTipoGeneros (ListTipoGenerosRequest) returns (ListTipoGenerosResponse);
+  rpc UpdateTipoGenero (UpdateTipoGeneroRequest) returns (TipoGeneroResponse);
+  rpc DeleteTipoGenero (DeleteTipoGeneroRequest) returns (DeleteTipoGeneroResponse);
+}
+
+/**
+ * Servicio para gestión de opciones de usuario
+ */
+service UsuarioOpcionesService {
+  rpc CreateUsuarioOpcion (CreateUsuarioOpcionRequest) returns (UsuarioOpcionResponse);
+  rpc GetUsuarioOpcion (GetUsuarioOpcionRequest) returns (UsuarioOpcionResponse);
+  rpc ListUsuarioOpciones (ListUsuarioOpcionesRequest) returns (ListUsuarioOpcionesResponse);
+  rpc UpdateUsuarioOpcion (UpdateUsuarioOpcionRequest) returns (UsuarioOpcionResponse);
+  rpc DeleteUsuarioOpcion (DeleteUsuarioOpcionRequest) returns (DeleteUsuarioOpcionResponse);
+}
+
+/**
+ * Servicio para gestión de roles de usuario por empresa
+ */
+service UsuarioEmpresaRolesService {
+  rpc CreateUsuarioEmpresaRol (CreateUsuarioEmpresaRolRequest) returns (CreateUsuarioEmpresaRolResponse);
+  rpc FindOneUsuarioEmpresaRol (FindOneUsuarioEmpresaRolRequest) returns (FindOneUsuarioEmpresaRolResponse);
+  rpc FindAllUsuarioEmpresaRoles (FindAllUsuarioEmpresaRolesRequest) returns (FindAllUsuarioEmpresaRolesResponse);
+  rpc UpdateUsuarioEmpresaRol (UpdateUsuarioEmpresaRolRequest) returns (UpdateUsuarioEmpresaRolResponse);
+  rpc DeleteUsuarioEmpresaRol (DeleteUsuarioEmpresaRolRequest) returns (DeleteUsuarioEmpresaRolResponse);
+}
+
+// ==================== MENSAJES ====================
+
+// Mensajes comunes
+message PaginationResponse {
+  int32 total = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  int32 pages = 4;
+}
+
+// ==================== USUARIO ====================
+
+message UsuarioData {
+  int32 usuario_id = 1;
+  string username = 2;
+  int32 persona_id = 3;
+  bool esta_activo = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateUsuarioResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioData data = 3;
+}
+
+message FindOneUsuarioRequest {
+  int32 usuario_id = 1;
+}
+
+message FindOneUsuarioResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioData data = 3;
+}
+
+message FindAllUsuariosRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search=3;
+}
+
+message FindAllUsuariosResponse {
+  bool success = 1;
+  string message = 2;
+  repeated UsuarioData data = 3;
+  int32 total = 4;
+}
+
+message UpdateUsuarioResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioData data = 3;
+}
+
+message UsuarioResponse {
+  int32 usuario_id = 1;
+  int32 persona_id = 2;
+  string username = 3;
+  bool esta_activo = 4;
+  bool es_super_admin = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message CreateUsuarioRequest {
+  int32 persona_id = 1;
+  string username = 2;
+  string password_hash = 3;
+  optional bool esta_activo = 4;
+  optional bool es_super_admin = 5;
+}
+
+message GetUsuarioRequest {
+  int32 usuario_id = 1;
+}
+
+message ListUsuariosRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListUsuariosResponse {
+  repeated UsuarioResponse usuarios = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateUsuarioRequest {
+  int32 usuario_id = 1;
+  optional int32 persona_id = 2;
+  optional string username = 3;
+  optional string password_hash = 4;
+  optional bool esta_activo = 5;
+  optional bool es_super_admin = 6;
+}
+
+message DeleteUsuarioRequest {
+  int32 usuario_id = 1;
+}
+
+message DeleteUsuarioResponse {
+  bool success = 1;
+}
+
+
+
+// ==================== ROLES ====================
+
+message RolData {
+  int32 rol_id = 1;
+  string nombre = 2;
+  string descripcion = 3;
+  bool es_global = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateRolResponse {
+  bool success = 1;
+  string message = 2;
+  RolData data = 3;
+}
+
+message FindOneRolRequest {
+  int32 rol_id = 1;
+}
+
+message FindOneRolResponse {
+  bool success = 1;
+  string message = 2;
+  RolData data = 3;
+}
+
+message FindAllRolesRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search=3;
+}
+
+message FindAllRolesResponse {
+  bool success = 1;
+  string message = 2;
+  repeated RolData data = 3;
+  int32 total = 4;
+}
+
+
+
+message UpdateRolResponse {
+  bool success = 1;
+  string message = 2;
+  RolData data = 3;
+}
+
+message RolResponse {
+  int32 rol_id = 1;
+  string nombre = 2;
+  string descripcion = 3;
+  bool es_global = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateRolRequest {
+  string nombre = 1;
+  string descripcion = 2;
+  optional bool es_global = 3;
+}
+
+message GetRolRequest {
+  int32 rol_id = 1;
+}
+
+message ListRolesRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListRolesResponse {
+  repeated RolResponse roles = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateRolRequest {
+  int32 rol_id = 1;
+  optional string nombre = 2;
+  optional string descripcion = 3;
+  optional bool es_global = 4;
+}
+
+message DeleteRolRequest {
+  int32 rol_id = 1;
+}
+
+message DeleteRolResponse {
+  bool success = 1;
+}
+
+// ==================== PERSONAS ====================
+
+message PersonaData {
+  int32 persona_id = 1;
+  string nombre = 2;
+  string apellido_paterno = 3;
+  string apellido_materno = 4;
+  int32 tipo_documento_id = 5;
+  string numero_documento = 6;
+  string telefono_principal = 7;
+  string telefono_secundario = 8;
+  string direccion = 9;
+  string correo_electronico = 10;
+  string fecha_nacimiento = 11;
+  int32 genero_id = 12;
+  string created_at = 13;
+  string updated_at = 14;
+
+}
+
+message CreatePersonaResponse {
+  bool success = 1;
+  string message = 2;
+  PersonaData data = 3;
+}
+
+message FindOnePersonaRequest {
+  int32 persona_id = 1;
+}
+
+message FindOnePersonaResponse {
+  bool success = 1;
+  string message = 2;
+  PersonaData data = 3;
+}
+
+message FindAllPersonasRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search =3;
+}
+
+message FindAllPersonasResponse {
+  bool success = 1;
+  string message = 2;
+  repeated PersonaData data = 3;
+  int32 total = 4;
+}
+
+message UpdatePersonaResponse {
+  bool success = 1;
+  string message = 2;
+  PersonaData data = 3;
+}
+
+message PersonaResponse {
+  int32 persona_id = 1;
+  string nombre = 2;
+  string apellido_paterno = 3;
+  string apellido_materno = 4;
+  int32 tipo_documento_id = 5;
+  string numero_documento = 6;
+  string telefono_principal = 7;
+  string telefono_secundario = 8;
+  string direccion = 9;
+  string correo_electronico = 10;
+  string fecha_nacimiento = 11;
+  int32 genero_id = 12;
+  string created_at = 13;
+  string updated_at = 14;
+}
+
+message CreatePersonaRequest {
+  string nombre = 1;
+  string apellido_paterno = 2;
+  string apellido_materno = 3;
+  int32 tipo_documento_id = 4;
+  string numero_documento = 5;
+  string telefono_principal = 6;
+  optional string telefono_secundario = 7;
+  string direccion = 8;
+  string correo_electronico = 9;
+  string fecha_nacimiento = 10;
+  int32 genero_id = 11;
+}
+
+message GetPersonaRequest {
+  int32 persona_id = 1;
+}
+
+message ListPersonasRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListPersonasResponse {
+  repeated PersonaResponse personas = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdatePersonaRequest {
+  int32 persona_id = 1;
+  optional string nombre = 2;
+  optional string apellido_paterno = 3;
+  optional string apellido_materno = 4;
+  optional int32 tipo_documento_id = 5;
+  optional string numero_documento = 6;
+  optional string telefono_principal = 7;
+  optional string telefono_secundario = 8;
+  optional string direccion = 9;
+  optional string correo_electronico = 10;
+  optional string fecha_nacimiento = 11;
+  optional int32 genero_id = 12;
+}
+
+message DeletePersonaRequest {
+  int32 persona_id = 1;
+}
+
+message DeletePersonaResponse {
+  bool success = 1;
+}
+
+// ==================== TIPO DOCUMENTO ====================
+
+message TipoDocumentoResponse {
+  int32 tipo_documento_id = 1;
+  string codigo = 2;
+  string nombre = 3;
+  string descripcion = 4;
+  int32 longitud_max = 5;
+  bool es_activo = 6;
+  string created_at = 7;
+}
+
+message CreateTipoDocumentoRequest {
+  string codigo = 1;
+  string nombre = 2;
+  optional string descripcion = 3;
+  optional int32 longitud_max = 4;
+  optional bool es_activo = 5;
+}
+
+message GetTipoDocumentoRequest {
+  int32 tipo_documento_id = 1;
+}
+
+message ListTipoDocumentosRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListTipoDocumentosResponse {
+  repeated TipoDocumentoResponse tipos_documentos = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateTipoDocumentoRequest {
+  int32 tipo_documento_id = 1;
+  optional string codigo = 2;
+  optional string nombre = 3;
+  optional string descripcion = 4;
+  optional int32 longitud_max = 5;
+  optional bool es_activo = 6;
+}
+
+message DeleteTipoDocumentoRequest {
+  int32 tipo_documento_id = 1;
+}
+
+message DeleteTipoDocumentoResponse {
+  bool success = 1;
+}
+
+// ==================== TIPO GENERO ====================
+
+message TipoGeneroResponse {
+  int32 genero_id = 1;
+  string codigo = 2;
+  string nombre = 3;
+  string descripcion = 4;
+  bool es_activo = 5;
+  string created_at = 6;
+}
+
+message CreateTipoGeneroRequest {
+  string codigo = 1;
+  string nombre = 2;
+  optional string descripcion = 3;
+  optional bool es_activo = 4;
+}
+
+message GetTipoGeneroRequest {
+  int32 genero_id = 1;
+}
+
+message ListTipoGenerosRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message ListTipoGenerosResponse {
+  repeated TipoGeneroResponse tipos_generos = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateTipoGeneroRequest {
+  int32 genero_id = 1;
+  optional string codigo = 2;
+  optional string nombre = 3;
+  optional string descripcion = 4;
+  optional bool es_activo = 5;
+}
+
+message DeleteTipoGeneroRequest {
+  int32 genero_id = 1;
+}
+
+message DeleteTipoGeneroResponse {
+  bool success = 1;
+}
+
+// ==================== USUARIO OPCIONES ====================
+
+message UsuarioOpcionResponse {
+  int32 usuario_id = 1;
+  int32 empresa_modulo_opcion_id = 2;
+  bool puede_ver = 3;
+  bool puede_crear = 4;
+  bool puede_editar = 5;
+  bool puede_eliminar = 6;
+  int32 asignado_por = 7;
+  string asignado_en = 8;
+}
+
+message CreateUsuarioOpcionRequest {
+  int32 usuario_id = 1;
+  int32 empresa_modulo_opcion_id = 2;
+  bool puede_ver = 3;
+  bool puede_crear = 4;
+  bool puede_editar = 5;
+  bool puede_eliminar = 6;
+  int32 asignado_por = 7;
+  string asignado_en = 8;
+}
+
+message GetUsuarioOpcionRequest {
+  int32 usuario_id = 1;
+  int32 empresa_modulo_opcion_id = 2;
+}
+
+message ListUsuarioOpcionesRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message ListUsuarioOpcionesResponse {
+  repeated UsuarioOpcionResponse opciones = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateUsuarioOpcionRequest {
+  int32 usuario_id = 1;
+  int32 empresa_modulo_opcion_id = 2;
+  optional bool puede_ver = 3;
+  optional bool puede_crear = 4;
+  optional bool puede_editar = 5;
+  optional bool puede_eliminar = 6;
+  optional int32 asignado_por = 7;
+  optional string asignado_en = 8;
+}
+
+message DeleteUsuarioOpcionRequest {
+  int32 usuario_id = 1;
+  int32 empresa_modulo_opcion_id = 2;
+}
+
+message DeleteUsuarioOpcionResponse {
+  bool success = 1;
+}
+
+// ==================== USUARIO EMPRESA ROLES ====================
+
+message UsuarioEmpresaRolData {
+  int32 usuario_empresa_rol_id = 1;
+  int32 usuario_id = 2;
+  int32 empresa_id = 3;
+  int32 rol_id = 4;
+  bool activo = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message CreateUsuarioEmpresaRolResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioEmpresaRolData data = 3;
+}
+
+message FindOneUsuarioEmpresaRolRequest {
+  int32 usuario_empresa_rol_id = 1;
+}
+
+message FindOneUsuarioEmpresaRolResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioEmpresaRolData data = 3;
+}
+
+message FindAllUsuarioEmpresaRolesRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message FindAllUsuarioEmpresaRolesResponse {
+  bool success = 1;
+  string message = 2;
+  repeated UsuarioEmpresaRolData data = 3;
+  int32 total = 4;
+}
+
+
+message UpdateUsuarioEmpresaRolResponse {
+  bool success = 1;
+  string message = 2;
+  UsuarioEmpresaRolData data = 3;
+}
+
+message UsuarioEmpresaRolResponse {
+  int32 usuario_empresa_rol_id = 1;
+  int32 usuario_id = 2;
+  int32 empresa_id = 3;
+  int32 rol_id = 4;
+  string created_at = 5;
+  RolResponse rol = 6; // Relación con rol
+}
+
+message CreateUsuarioEmpresaRolRequest {
+  int32 usuario_id = 1;
+  int32 empresa_id = 2;
+  int32 rol_id = 3;
+}
+
+message GetUsuarioEmpresaRolRequest {
+  int32 usuario_empresa_rol_id = 1;
+}
+
+message ListUsuarioEmpresaRolesRequest {
+  int32 usuario_id = 1;
+  optional int32 empresa_id = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+message ListUsuarioEmpresaRolesResponse {
+  repeated UsuarioEmpresaRolResponse roles = 1;
+  PaginationResponse pagination = 2;
+}
+
+message UpdateUsuarioEmpresaRolRequest {
+  int32 usuario_empresa_rol_id = 1;
+  optional int32 usuario_id = 2;
+  optional int32 empresa_id = 3;
+  optional int32 rol_id = 4;
+}
+
+message DeleteUsuarioEmpresaRolRequest {
+  int32 usuario_empresa_rol_id = 1;
+}
+
+message DeleteUsuarioEmpresaRolResponse {
+  bool success = 1;
+}

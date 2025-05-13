@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "precopy:proto": "[ -d dist/proto ] || mkdir -p dist/proto",
+    "precopy:proto": "shx mkdir -p dist/proto",
     "postbuild": "pnpm run precopy:proto && copyfiles -u 2 src/proto/*.proto dist/proto",
     "copy:proto:watch": "pnpm run precopy:proto && copyfiles -u 2 --watch src/proto/*.proto dist/proto",
     "copy:proto": "pnpm run precopy:proto && copyfiles -u 2 src/proto/*.proto dist/proto",
